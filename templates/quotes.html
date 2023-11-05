@@ -101,21 +101,21 @@
     <div class="container">
         <!-- Movie Grid -->
         <div class="movie-grid">
-            <div class="movie-card" onclick="showModal('av1')">
-                <img src={{ url_for('static', filename='images/av1.jpeg') }} alt="Movie 1">
+            <div class="movie-card" onclick="showModal('script1.txt')">
+                <img src="{{ url_for('static', filename='images/av1.jpeg') }}" alt="Movie 1">
                 <p class="movie-title">The Avengers</p>
             </div>
-            <div class="movie-card" onclick="showModal('av2')">
-                <img src={{ url_for('static', filename='images/av2.jpg') }} alt="Movie 2">
+            <div class="movie-card" onclick="showModal('script2.txt')">
+                <img src="{{ url_for('static', filename='images/av2.jpg') }}" alt="Movie 2">
                 <p class="movie-title">Avengers Age Of Ultron</p>
             </div>
             <!-- Add more movie cards here -->
-            <div class="movie-card" onclick="showModal('av3')">
-                <img src={{ url_for('static', filename='images/av3.jpg') }} alt="Movie 3">
+            <div class="movie-card" onclick="showModal('script3.txt')">
+                <img src="{{ url_for('static', filename='images/av3.jpg') }}" alt="Movie 3">
                 <p class="movie-title">Avengers Infinity War</p>
             </div>
-            <div class ="movie-card" onclick="showModal('av4')">
-                <img src={{ url_for('static', filename='images/av4.jpeg') }} alt="Movie 4">
+            <div class ="movie-card" onclick="showModal('script4.txt')">
+                <img src="{{ url_for('static', filename='images/av4.jpeg') }}" alt="Movie 4">
                 <p class="movie-title">Avengers Endgame</p>
             </div>
         </div>
@@ -141,6 +141,8 @@
 
     <script>
         function showModal(movie) {
+            document.forms["sub"]["file"].value = movie;
+            alert(document.forms["sub"]["file"].value);
             document.getElementById('quoteModal').style.display = 'block';
         }
 
