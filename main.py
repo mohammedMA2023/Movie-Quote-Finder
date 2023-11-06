@@ -3,19 +3,22 @@ from flask import *
 temp = ""
 
 def find(search,file):
-    res = ""
     input_string = search
+    res = ""
+    # Split the input string into words
+    words = input_string.split()
 
-    # Generate a list of tuples where each tuple contains a letter and its uppercase/lowercase representation.
-    case_variants = [(c, c.upper()) if c.isalpha() else (c,) for c in input_string]
+    # Generate variations by capitalizing or not capitalizing the first letter of each word
+    case_variants = []
 
-    # Generate all possible combinations of uppercase and lowercase for each letter.
-    all_case_combinations = [''.join(combination) for combination in product(*case_variants)]
-
-
+    for case_combination in product([True, False], repeat=len(words)):
+        variant = ' '.join(
+            [word.capitalize() if capitalize else word for word, capitalize in zip(words, case_combination)])
+        case_variants.append(variant)
+    print(case_variants)
     with open(file,"r") as file:
         for line in file:
-                for variant in all_case_combinations:
+                for variant in case_variants:
 
                     if  variant in line or " " + variant + " " in line or " " + variant in line or variant + " " in line:
                         res += line +"\n"
