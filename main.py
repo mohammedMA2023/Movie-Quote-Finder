@@ -19,8 +19,12 @@ def find(search,file):
     with open(file,"r") as file:
         for line in file:
                 for variant in case_variants:
+                    variant_2 = variant + " "
+                    variant_3 = " " + variant
+                    variant_4 = " " + variant + " "
+                    print(f"V1, {variant}\n V2 {variant_2}, V3: {variant_3}\n V4: {variant_4}")
+                    if variant in line or variant_2 in line or  variant_3 in line or variant_4 in line:
 
-                    if  variant in line or " " + variant + " " in line or " " + variant in line or variant + " " in line:
                         res += line +"\n"
 
     return res
