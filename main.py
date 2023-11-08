@@ -1,33 +1,32 @@
 from itertools import product
 from flask import *
-temp = ""
 
-def find(search,file):
+def find(search, file):
     input_string = search
     res = ""
-    # Split the input string into words
+
     words = input_string.split()
-
-    # Generate variations by capitalizing or not capitalizing the first letter of each word
     case_variants = []
-
     for case_combination in product([True, False], repeat=len(words)):
         variant = ' '.join(
             [word.capitalize() if capitalize else word for word, capitalize in zip(words, case_combination)])
         case_variants.append(variant)
-    print(case_variants)
-    with open(file,"r") as file:
+
+    # Generate variations where individual words are fully capitalized
+    word_capitalization_variants = []
+    for word_combination in product([True, False], repeat=len(words)):
+        variant = ' '.join([word.upper() if caps else word for word, caps in zip(words, word_combination)])
+        word_capitalization_variants.append(variant)
+
+    # Combine both sets of variations
+    all_variants = case_variants + word_capitalization_variants
+
+    for variant in all_variants:
+        print(variant)
         for line in file:
-                for variant in case_variants:
-                    variant_2 = variant + " "
-                    variant_3 = " " + variant
-                    variant_4 = " " + variant + " "
-                    print(f"V1, {variant}\n V2 {variant_2}, V3: {variant_3}\n V4: {variant_4}")
-                    if variant in line or variant_2 in line or  variant_3 in line or variant_4 in line:
+            if variant in line:
+                print(f"Found: {variant} in line: {line}")
 
-                        res += line +"\n"
-
-    return res
 app = Flask(__name__)
 
 @app.route('/',methods=['GET', 'POST'])
