@@ -21,11 +21,17 @@ def find(search, file):
     # Combine both sets of variations
     all_variants = case_variants + word_capitalization_variants
 
-    for variant in all_variants:
-        print(variant)
-        for line in file:
-            if variant in line:
-                print(f"Found: {variant} in line: {line}")
+    with open(file,'r') as f:
+        for line in f:
+
+            for variant in all_variants:
+                variant_2 = variant + " "
+                variant_3 = " " + variant
+                variant_4 = " " + variant + " "
+
+                if variant in line or variant_2 in line or variant_3 in line or variant_4 in line or variant in line.lower() or variant_2 in line.lower() or variant_3 in line.lower() or variant_4 in line.lower() or variant in line.upper() or variant_2 in line.upper() or variant_3 in line.upper() or variant_4 in line.upper() or variant in line.title() or variant_2 in line.title() or variant_3 in line.title() or variant_4 in line.title() or variant in line.capitalize() or variant_2 in line.capitalize() or variant_3 in line.capitalize() or variant_4 in line.capitalize():
+                    res += line + "\n"
+    return res if res else  "Not Found"
 
 app = Flask(__name__)
 
@@ -33,7 +39,7 @@ app = Flask(__name__)
 def hello_world():
     if request.method == 'POST':
         if 'search' in request.form:
-            print('yes')
+
             entered_value = request.form["quote"]
             script = request.form["file"]
             return render_template("result.html",res=find(entered_value,script))
@@ -43,4 +49,4 @@ def hello_world():
     return render_template("quotes.html")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="192.168.0.203",port=443)
